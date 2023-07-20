@@ -348,6 +348,9 @@ def _minimize_lbfgsb(fun, x0, args=(), jac=None, bounds=None,
     n_iterations = 0
 
     while 1:
+        # convert gradient to double precision for Fortran
+        g = g.astype(np.float64)
+        
         # x, f, g, wa, iwa, task, csave, lsave, isave, dsave = \
         _lbfgsb.setulb(m, x, low_bnd, upper_bnd, nbd, f, g, factr,
                        pgtol, wa, iwa, task, iprint, csave, lsave,
